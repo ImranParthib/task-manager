@@ -16,8 +16,14 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
+// Auth routes
+app.use("/api/auth", require("./routes/auth"));
+
+// Task routes
+app.use("/api/tasks", require("./routes/tasks"));
+
 app.get("/", (req, res) => {
-  res.send("Task Manager API running");
+  res.send(`Task Manager API running at ${PORT}`);
 });
 
 app.listen(PORT, () => {
