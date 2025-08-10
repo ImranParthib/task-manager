@@ -21,6 +21,8 @@ services:
       - /app/node_modules
     environment:
       - MONGO_URL=mongodb://mongo:27017/taskmanager
+      - JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-2025
+      - NODE_ENV=development
     depends_on:
       - mongo
   mongo:

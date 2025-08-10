@@ -5,10 +5,127 @@
     @apply transition-opacity duration-500 opacity-0;
     animation: fadeIn 0.5s forwards;
   }
+
+  .animate-slide-in {
+    @apply transform transition-transform duration-300 ease-in-out;
+    animation: slideIn 0.3s forwards;
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.6s forwards;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-200;
+  }
+
+  .hover-scale:hover {
+    @apply transform scale-105;
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+
+  .task-card-hover {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .task-card-hover:hover {
+    @apply transform translate-y-[-2px] shadow-lg;
+  }
+
+  .button-pulse {
+    @apply transition-all duration-200;
+  }
+
+  .button-pulse:active {
+    @apply transform scale-95;
+  }
+
+  .filter-badge {
+    @apply transition-all duration-200;
+  }
+
+  .filter-badge:hover {
+    @apply transform translate-y-[-1px];
+  }
 }
 
 @keyframes fadeIn {
   to {
     opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Focus styles */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+/* Loading skeleton */
+.skeleton {
+  @apply bg-gray-200 animate-pulse rounded;
+}
+
+/* Responsive text */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: 0.875rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .task-card {
+    @apply border-2 border-gray-900;
   }
 }

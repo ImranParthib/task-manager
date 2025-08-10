@@ -7,41 +7,94 @@ function getToken() {
 }
 
 export async function getTasks() {
+  const token = getToken();
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
   const res = await fetch(TASKS_URL, {
-    headers: { Authorization: `Bearer ${getToken()}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
-  return res.json();
+
+  if (!res.ok) {
+    if (res.status === 401) {
+      throw new Error("401 Unauthorized - Please login again");
+    }
+    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
 }
 
 export async function createTask(task) {
+  const token = getToken();
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
   const res = await fetch(TASKS_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(task),
   });
+
+  if (!res.ok) {
+    if (res.status === 401) {
+      throw new Error("401 Unauthorized - Please login again");
+    }
+    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
 export async function updateTask(id, updates) {
+  const token = getToken();
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
   const res = await fetch(`${TASKS_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(updates),
   });
+
+  if (!res.ok) {
+    if (res.status === 401) {
+      throw new Error("401 Unauthorized - Please login again");
+    }
+    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
 export async function deleteTask(id) {
+  const token = getToken();
+  if (!token) {
+    throw new Error("No authentication token found");
+  }
+
   const res = await fetch(`${TASKS_URL}/${id}`, {
     method: "DELETE",
-    headers: { Authorization: `Bearer ${getToken()}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
+
+  if (!res.ok) {
+    if (res.status === 401) {
+      throw new Error("401 Unauthorized - Please login again");
+    }
+    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  }
+
   return res.json();
 }
 
